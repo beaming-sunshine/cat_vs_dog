@@ -1,0 +1,743 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Cats\_vs\_dogs}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{os}\PY{o}{,}\PY{n+nn}{shutil}
+\end{Verbatim}
+
+
+    \section{1.建立CNN网络模型}\label{ux5efaux7acbcnnux7f51ux7edcux6a21ux578b}
+
+    \subsection{1.1
+将数据集分为训练集、测试集、验证集}\label{ux5c06ux6570ux636eux96c6ux5206ux4e3aux8badux7ec3ux96c6ux6d4bux8bd5ux96c6ux9a8cux8bc1ux96c6}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{original\PYZus{}dataset\PYZus{}dir} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{F:}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{project\PYZus{}deeplearning}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{keras}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{猫狗大作战}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{dataset\PYZus{}kaggledogvscat}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{base\PYZus{}dir} \PY{o}{=} \PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{F:}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{project\PYZus{}deeplearning}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{keras}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{猫狗大作战}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{dataset\PYZus{}kaggledogvscat}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{cats\PYZus{}and\PYZus{}dogs\PYZus{}small}\PY{l+s+s1}{\PYZsq{}}
+        \PY{c+c1}{\PYZsh{}os.mkdir(base\PYZus{}dir)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} 创建文件夹}
+        
+        \PY{n}{train\PYZus{}dir} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{base\PYZus{}dir}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} os.mkdir(train\PYZus{}dir)}
+        \PY{n}{validation\PYZus{}dir} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{base\PYZus{}dir}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{validation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} os.mkdir(validation\PYZus{}dir)}
+        \PY{n}{test\PYZus{}dir} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{base\PYZus{}dir}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} os.mkdir(test\PYZus{}dir)}
+        
+        \PY{c+c1}{\PYZsh{}每个文件夹再分为猫和狗}
+        \PY{n}{train\PYZus{}cats\PYZus{}dir} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{train\PYZus{}dir}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cats}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} os.mkdir(train\PYZus{}cats\PYZus{}dir)}
+        \PY{n}{train\PYZus{}dogs\PYZus{}dir} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{train\PYZus{}dir}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dogs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} os.mkdir(train\PYZus{}dogs\PYZus{}dir)}
+        \PY{n}{validation\PYZus{}cats\PYZus{}dir} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{validation\PYZus{}dir}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cats}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} os.mkdir(validation\PYZus{}cats\PYZus{}dir)}
+        \PY{n}{validation\PYZus{}dogs\PYZus{}dir} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{validation\PYZus{}dir}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dogs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} os.mkdir(validation\PYZus{}dogs\PYZus{}dir)}
+        \PY{n}{test\PYZus{}cats\PYZus{}dir} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{test\PYZus{}dir}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cats}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} os.mkdir(test\PYZus{}cats\PYZus{}dir)}
+        \PY{n}{test\PYZus{}dogs\PYZus{}dir} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{test\PYZus{}dir}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dogs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} os.mkdir(test\PYZus{}dogs\PYZus{}dir)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{fnames} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cat.}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10000}\PY{p}{)}\PY{p}{]}  \PY{c+c1}{\PYZsh{}0\PYZhy{}9999张猫图片作为训练集}
+         \PY{k}{for} \PY{n}{fname} \PY{o+ow}{in} \PY{n}{fnames}\PY{p}{:}
+             \PY{n}{src} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{original\PYZus{}dataset\PYZus{}dir}\PY{p}{,} \PY{n}{fname}\PY{p}{)}
+             \PY{n}{dst} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{train\PYZus{}cats\PYZus{}dir}\PY{p}{,} \PY{n}{fname}\PY{p}{)}
+             \PY{n}{shutil}\PY{o}{.}\PY{n}{copyfile}\PY{p}{(}\PY{n}{src}\PY{p}{,} \PY{n}{dst}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{fnames} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cat.}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10000}\PY{p}{,} \PY{l+m+mi}{12500}\PY{p}{)}\PY{p}{]} \PY{c+c1}{\PYZsh{}10000\PYZhy{}12499猫的图片为验证集}
+         \PY{k}{for} \PY{n}{fname} \PY{o+ow}{in} \PY{n}{fnames}\PY{p}{:}
+             \PY{n}{src} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{original\PYZus{}dataset\PYZus{}dir}\PY{p}{,} \PY{n}{fname}\PY{p}{)}
+             \PY{n}{dst} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{validation\PYZus{}cats\PYZus{}dir}\PY{p}{,} \PY{n}{fname}\PY{p}{)}
+             \PY{n}{shutil}\PY{o}{.}\PY{n}{copyfile}\PY{p}{(}\PY{n}{src}\PY{p}{,} \PY{n}{dst}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{fnames} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dog.}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10000}\PY{p}{)}\PY{p}{]}
+         \PY{k}{for} \PY{n}{fname} \PY{o+ow}{in} \PY{n}{fnames}\PY{p}{:}
+             \PY{n}{src} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{original\PYZus{}dataset\PYZus{}dir}\PY{p}{,} \PY{n}{fname}\PY{p}{)}
+             \PY{n}{dst} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{train\PYZus{}dogs\PYZus{}dir}\PY{p}{,} \PY{n}{fname}\PY{p}{)}
+             \PY{n}{shutil}\PY{o}{.}\PY{n}{copyfile}\PY{p}{(}\PY{n}{src}\PY{p}{,} \PY{n}{dst}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{fnames} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dog.}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.jpg}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10000}\PY{p}{,} \PY{l+m+mi}{12500}\PY{p}{)}\PY{p}{]}
+         \PY{k}{for} \PY{n}{fname} \PY{o+ow}{in} \PY{n}{fnames}\PY{p}{:}
+             \PY{n}{src} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{original\PYZus{}dataset\PYZus{}dir}\PY{p}{,} \PY{n}{fname}\PY{p}{)}
+             \PY{n}{dst} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{validation\PYZus{}dogs\PYZus{}dir}\PY{p}{,} \PY{n}{fname}\PY{p}{)}
+             \PY{n}{shutil}\PY{o}{.}\PY{n}{copyfile}\PY{p}{(}\PY{n}{src}\PY{p}{,} \PY{n}{dst}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total training cat images:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{n}{train\PYZus{}cats\PYZus{}dir}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total training dog images:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{n}{train\PYZus{}dogs\PYZus{}dir}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total validation cat images:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{n}{validation\PYZus{}cats\PYZus{}dir}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total validation dog images:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{n}{validation\PYZus{}dogs\PYZus{}dir}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} print(\PYZsq{}total test cat images:\PYZsq{}, len(os.listdir(test\PYZus{}cats\PYZus{}dir)))}
+         \PY{c+c1}{\PYZsh{} print(\PYZsq{}total test dog images:\PYZsq{}, len(os.listdir(test\PYZus{}dogs\PYZus{}dir)))}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+total training cat images: 10000
+total training dog images: 10000
+total validation cat images: 2500
+total validation dog images: 2500
+
+    \end{Verbatim}
+
+    \subsection{1.2构建神经网络}\label{ux6784ux5efaux795eux7ecfux7f51ux7edc}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{from} \PY{n+nn}{keras} \PY{k}{import} \PY{n}{layers}
+        \PY{k+kn}{from} \PY{n+nn}{keras} \PY{k}{import} \PY{n}{models}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+D:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}h5py\textbackslash{}\_\_init\_\_.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from .\_conv import register\_converters as \_register\_converters
+Using TensorFlow backend.
+D:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}python\textbackslash{}framework\textbackslash{}dtypes.py:526: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  \_np\_qint8 = np.dtype([("qint8", np.int8, 1)])
+D:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}python\textbackslash{}framework\textbackslash{}dtypes.py:527: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  \_np\_quint8 = np.dtype([("quint8", np.uint8, 1)])
+D:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}python\textbackslash{}framework\textbackslash{}dtypes.py:528: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  \_np\_qint16 = np.dtype([("qint16", np.int16, 1)])
+D:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}python\textbackslash{}framework\textbackslash{}dtypes.py:529: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  \_np\_quint16 = np.dtype([("quint16", np.uint16, 1)])
+D:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}python\textbackslash{}framework\textbackslash{}dtypes.py:530: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  \_np\_qint32 = np.dtype([("qint32", np.int32, 1)])
+D:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}python\textbackslash{}framework\textbackslash{}dtypes.py:535: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np\_resource = np.dtype([("resource", np.ubyte, 1)])
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{model} \PY{o}{=} \PY{n}{models}\PY{o}{.}\PY{n}{Sequential}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{layers}\PY{o}{.}\PY{n}{Conv2D}\PY{p}{(}\PY{l+m+mi}{32}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{input\PYZus{}shape}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{150}\PY{p}{,} \PY{l+m+mi}{150}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{layers}\PY{o}{.}\PY{n}{MaxPooling2D}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{layers}\PY{o}{.}\PY{n}{Conv2D}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{layers}\PY{o}{.}\PY{n}{MaxPooling2D}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{layers}\PY{o}{.}\PY{n}{Conv2D}\PY{p}{(}\PY{l+m+mi}{128}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{layers}\PY{o}{.}\PY{n}{MaxPooling2D}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{layers}\PY{o}{.}\PY{n}{Conv2D}\PY{p}{(}\PY{l+m+mi}{128}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{layers}\PY{o}{.}\PY{n}{MaxPooling2D}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{layers}\PY{o}{.}\PY{n}{Flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{layers}\PY{o}{.}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{512}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{layers}\PY{o}{.}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+WARNING:tensorflow:From D:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}python\textbackslash{}framework\textbackslash{}op\_def\_library.py:263: colocate\_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Layer (type)                 Output Shape              Param \#   
+=================================================================
+conv2d\_1 (Conv2D)            (None, 148, 148, 32)      896       
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+max\_pooling2d\_1 (MaxPooling2 (None, 74, 74, 32)        0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv2d\_2 (Conv2D)            (None, 72, 72, 64)        18496     
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+max\_pooling2d\_2 (MaxPooling2 (None, 36, 36, 64)        0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv2d\_3 (Conv2D)            (None, 34, 34, 128)       73856     
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+max\_pooling2d\_3 (MaxPooling2 (None, 17, 17, 128)       0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+conv2d\_4 (Conv2D)            (None, 15, 15, 128)       147584    
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+max\_pooling2d\_4 (MaxPooling2 (None, 7, 7, 128)         0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+flatten\_1 (Flatten)          (None, 6272)              0         
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+dense\_1 (Dense)              (None, 512)               3211776   
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+dense\_2 (Dense)              (None, 1)                 513       
+=================================================================
+Total params: 3,453,121
+Trainable params: 3,453,121
+Non-trainable params: 0
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k+kn}{from} \PY{n+nn}{keras} \PY{k}{import} \PY{n}{optimizers}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} 配置用于训练的模型}
+        \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}
+            \PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{binary\PYZus{}crossentropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{n}{optimizer}\PY{o}{=}\PY{n}{optimizers}\PY{o}{.}\PY{n}{RMSprop}\PY{p}{(}\PY{n}{lr}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}4}\PY{p}{)}\PY{p}{,}    \PY{c+c1}{\PYZsh{}优化器}
+            \PY{n}{metrics}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}                     \PY{c+c1}{\PYZsh{}一般为这个}
+        \PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{1.3数据预处理}\label{ux6570ux636eux9884ux5904ux7406}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{preprocessing}\PY{n+nn}{.}\PY{n+nn}{image} \PY{k}{import} \PY{n}{ImageDataGenerator}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{train\PYZus{}datagen} \PY{o}{=} \PY{n}{ImageDataGenerator}\PY{p}{(}\PY{n}{rescale}\PY{o}{=}\PY{l+m+mf}{1.}\PY{o}{/}\PY{l+m+mi}{255}\PY{p}{,}
+                                           \PY{n}{shear\PYZus{}range}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}
+                                           \PY{n}{zoom\PYZus{}range}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}
+                                           \PY{n}{horizontal\PYZus{}flip}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}   \PY{c+c1}{\PYZsh{}所有图像乘1/255,图像增强旋转，缩放}
+         \PY{n}{test\PYZus{}datagen} \PY{o}{=} \PY{n}{ImageDataGenerator}\PY{p}{(}\PY{n}{rescale}\PY{o}{=}\PY{l+m+mf}{1.}\PY{o}{/}\PY{l+m+mi}{255}\PY{p}{,}
+                                          \PY{n}{shear\PYZus{}range}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}
+                                          \PY{n}{zoom\PYZus{}range}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}
+                                          \PY{n}{horizontal\PYZus{}flip}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{train\PYZus{}generator} \PY{o}{=} \PY{n}{train\PYZus{}datagen}\PY{o}{.}\PY{n}{flow\PYZus{}from\PYZus{}directory}\PY{p}{(}
+             \PY{n}{train\PYZus{}dir}\PY{p}{,}
+             \PY{n}{target\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{150}\PY{p}{,}\PY{l+m+mi}{150}\PY{p}{)}\PY{p}{,}   \PY{c+c1}{\PYZsh{}目标图片大小}
+             \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{32}\PY{p}{,}           \PY{c+c1}{\PYZsh{}每次放进模型里的图片的数量}
+             \PY{n}{class\PYZus{}mode}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{binary}\PY{l+s+s1}{\PYZsq{}}      \PY{c+c1}{\PYZsh{}使用binary\PYZus{}crossentropy，需用二进制标签}
+         \PY{p}{)}
+         \PY{n}{validation\PYZus{}generator} \PY{o}{=} \PY{n}{test\PYZus{}datagen}\PY{o}{.}\PY{n}{flow\PYZus{}from\PYZus{}directory}\PY{p}{(}
+             \PY{n}{validation\PYZus{}dir}\PY{p}{,}
+             \PY{n}{target\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{150}\PY{p}{,}\PY{l+m+mi}{150}\PY{p}{)}\PY{p}{,}
+             \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{32}\PY{p}{,}
+             \PY{n}{class\PYZus{}mode} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{binary}\PY{l+s+s1}{\PYZsq{}}
+         \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Found 20000 images belonging to 2 classes.
+Found 5000 images belonging to 2 classes.
+
+    \end{Verbatim}
+
+    \subsection{回调函数的使用}\label{ux56deux8c03ux51fdux6570ux7684ux4f7fux7528}
+
+\begin{itemize}
+\tightlist
+\item
+  Tensorboard
+\item
+  ModelCheckpoint
+\item
+  reducelr
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{callbacks} \PY{k}{import} \PY{n}{TensorBoard}\PY{p}{,} \PY{n}{ModelCheckpoint}\PY{p}{,} \PY{n}{ReduceLROnPlateau}\PY{p}{,} \PY{n}{EarlyStopping}\PY{p}{,}\PY{n}{ReduceLROnPlateau}
+         \PY{n}{log\PYZus{}dir} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{logs/001/}\PY{l+s+s2}{\PYZdq{}} \PY{c+c1}{\PYZsh{}日志和模型文件存放文件夹}
+         \PY{n}{checkpoint\PYZus{}path}  \PY{o}{=} \PY{n}{log\PYZus{}dir} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ep}\PY{l+s+si}{\PYZob{}epoch:03d\PYZcb{}}\PY{l+s+s1}{\PYZhy{}loss}\PY{l+s+si}{\PYZob{}loss:.3f\PYZcb{}}\PY{l+s+s1}{\PYZhy{}val\PYZus{}loss}\PY{l+s+si}{\PYZob{}val\PYZus{}loss:.3f\PYZcb{}}\PY{l+s+s1}{.h5}\PY{l+s+s1}{\PYZsq{}} \PY{c+c1}{\PYZsh{}模型文件存放地址}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{tensorboard} \PY{o}{=} \PY{n}{TensorBoard}\PY{p}{(}\PY{n}{log\PYZus{}dir}\PY{o}{=}\PY{n}{log\PYZus{}dir}\PY{p}{)}
+         \PY{n}{checkpoint} \PY{o}{=} \PY{n}{ModelCheckpoint}\PY{p}{(}\PY{n}{checkpoint\PYZus{}path}\PY{p}{,}\PY{n}{monitor}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{val\PYZus{}loss}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{save\PYZus{}best\PYZus{}only}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{period}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{reduce\PYZus{}lr} \PY{o}{=} \PY{n}{ReduceLROnPlateau}\PY{p}{(}\PY{n}{monitor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{factor}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{patience}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{}利用批量生成器拟合模型}
+         \PY{n}{history} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit\PYZus{}generator}\PY{p}{(}
+             \PY{n}{train\PYZus{}generator}\PY{p}{,}
+             \PY{n}{steps\PYZus{}per\PYZus{}epoch}\PY{o}{=}\PY{l+m+mi}{625}\PY{p}{,}  \PY{c+c1}{\PYZsh{}整数，当生成器返回steps\PYZus{}per\PYZus{}epoch次数据时计一个epoch结束}
+             \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,}    \PY{c+c1}{\PYZsh{}整数，数据迭代的轮数}
+             \PY{n}{validation\PYZus{}data}\PY{o}{=}\PY{n}{validation\PYZus{}generator}\PY{p}{,} 
+             \PY{n}{validation\PYZus{}steps}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,}   \PY{c+c1}{\PYZsh{}当validation\PYZus{}data为生成器时，本参数指定验证集的生成器返回次数}
+             \PY{n}{callbacks} \PY{o}{=} \PY{p}{[}\PY{n}{tensorboard}\PY{p}{,}\PY{n}{checkpoint}\PY{p}{,}\PY{n}{reduce\PYZus{}lr}\PY{p}{]}
+         \PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}保存模型}
+         \PY{c+c1}{\PYZsh{} model.save(\PYZsq{}cats\PYZus{}and\PYZus{}dogs\PYZus{}small\PYZus{}1.h5\PYZsq{})}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+WARNING:tensorflow:From D:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}python\textbackslash{}ops\textbackslash{}math\_ops.py:3066: to\_int32 (from tensorflow.python.ops.math\_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+Epoch 1/50
+625/625 [==============================] - 495s 792ms/step - loss: 0.6255 - acc: 0.6421 - val\_loss: 0.5603 - val\_acc: 0.7156
+Epoch 2/50
+625/625 [==============================] - 179s 286ms/step - loss: 0.5372 - acc: 0.7268 - val\_loss: 0.5179 - val\_acc: 0.7438
+Epoch 3/50
+625/625 [==============================] - 184s 294ms/step - loss: 0.4824 - acc: 0.7649 - val\_loss: 0.4587 - val\_acc: 0.7625
+Epoch 4/50
+625/625 [==============================] - 203s 326ms/step - loss: 0.4503 - acc: 0.7875 - val\_loss: 0.4309 - val\_acc: 0.7969
+Epoch 5/50
+625/625 [==============================] - 183s 292ms/step - loss: 0.4225 - acc: 0.8056 - val\_loss: 0.3936 - val\_acc: 0.8203
+Epoch 6/50
+625/625 [==============================] - 182s 291ms/step - loss: 0.4068 - acc: 0.8118 - val\_loss: 0.3757 - val\_acc: 0.8438
+Epoch 7/50
+625/625 [==============================] - 182s 291ms/step - loss: 0.3858 - acc: 0.8242 - val\_loss: 0.3883 - val\_acc: 0.8250
+Epoch 8/50
+625/625 [==============================] - 184s 294ms/step - loss: 0.3686 - acc: 0.8328 - val\_loss: 0.3782 - val\_acc: 0.8377
+Epoch 9/50
+625/625 [==============================] - 255s 408ms/step - loss: 0.3543 - acc: 0.8420 - val\_loss: 0.3403 - val\_acc: 0.8375
+Epoch 10/50
+625/625 [==============================] - 229s 366ms/step - loss: 0.3370 - acc: 0.8523 - val\_loss: 0.3426 - val\_acc: 0.8516
+Epoch 11/50
+625/625 [==============================] - 211s 338ms/step - loss: 0.3242 - acc: 0.8600 - val\_loss: 0.4030 - val\_acc: 0.8266
+Epoch 12/50
+625/625 [==============================] - 194s 310ms/step - loss: 0.3114 - acc: 0.8635 - val\_loss: 0.3562 - val\_acc: 0.8562
+Epoch 13/50
+625/625 [==============================] - 189s 302ms/step - loss: 0.2996 - acc: 0.8728 - val\_loss: 0.3230 - val\_acc: 0.8750
+Epoch 14/50
+625/625 [==============================] - 374s 598ms/step - loss: 0.2867 - acc: 0.8756 - val\_loss: 0.3304 - val\_acc: 0.8609
+Epoch 15/50
+625/625 [==============================] - 718s 1s/step - loss: 0.2783 - acc: 0.8786 - val\_loss: 0.3135 - val\_acc: 0.8484
+Epoch 16/50
+625/625 [==============================] - 698s 1s/step - loss: 0.2662 - acc: 0.8864 - val\_loss: 0.3127 - val\_acc: 0.8750
+Epoch 17/50
+625/625 [==============================] - 710s 1s/step - loss: 0.2565 - acc: 0.8923 - val\_loss: 0.2801 - val\_acc: 0.8922
+Epoch 18/50
+625/625 [==============================] - 706s 1s/step - loss: 0.2473 - acc: 0.8971 - val\_loss: 0.2948 - val\_acc: 0.8812
+Epoch 19/50
+625/625 [==============================] - 707s 1s/step - loss: 0.2390 - acc: 0.8975 - val\_loss: 0.2635 - val\_acc: 0.8875
+Epoch 20/50
+625/625 [==============================] - 719s 1s/step - loss: 0.2292 - acc: 0.9035 - val\_loss: 0.2800 - val\_acc: 0.8891
+Epoch 21/50
+625/625 [==============================] - 712s 1s/step - loss: 0.2194 - acc: 0.9082 - val\_loss: 0.2741 - val\_acc: 0.8844
+Epoch 22/50
+625/625 [==============================] - 713s 1s/step - loss: 0.2150 - acc: 0.9116 - val\_loss: 0.2578 - val\_acc: 0.8906
+Epoch 23/50
+625/625 [==============================] - 714s 1s/step - loss: 0.2076 - acc: 0.9136 - val\_loss: 0.3190 - val\_acc: 0.8641
+Epoch 24/50
+625/625 [==============================] - 726s 1s/step - loss: 0.2028 - acc: 0.9163 - val\_loss: 0.2471 - val\_acc: 0.8945
+Epoch 25/50
+625/625 [==============================] - 727s 1s/step - loss: 0.1909 - acc: 0.9205 - val\_loss: 0.3410 - val\_acc: 0.8719
+Epoch 26/50
+625/625 [==============================] - 754s 1s/step - loss: 0.1900 - acc: 0.9235 - val\_loss: 0.2808 - val\_acc: 0.8938
+Epoch 27/50
+625/625 [==============================] - 704s 1s/step - loss: 0.1838 - acc: 0.9240 - val\_loss: 0.2714 - val\_acc: 0.8828
+Epoch 28/50
+625/625 [==============================] - 703s 1s/step - loss: 0.1809 - acc: 0.9275 - val\_loss: 0.2682 - val\_acc: 0.8922
+Epoch 29/50
+625/625 [==============================] - 704s 1s/step - loss: 0.1763 - acc: 0.9308 - val\_loss: 0.2587 - val\_acc: 0.8984
+
+Epoch 00029: ReduceLROnPlateau reducing learning rate to 9.999999747378752e-06.
+Epoch 30/50
+625/625 [==============================] - 702s 1s/step - loss: 0.1314 - acc: 0.9484 - val\_loss: 0.2083 - val\_acc: 0.9125
+Epoch 31/50
+625/625 [==============================] - 704s 1s/step - loss: 0.1237 - acc: 0.9511 - val\_loss: 0.2089 - val\_acc: 0.9156
+Epoch 32/50
+625/625 [==============================] - 705s 1s/step - loss: 0.1242 - acc: 0.9531 - val\_loss: 0.2208 - val\_acc: 0.9237
+Epoch 33/50
+625/625 [==============================] - 704s 1s/step - loss: 0.1202 - acc: 0.9531 - val\_loss: 0.2160 - val\_acc: 0.9156
+Epoch 34/50
+625/625 [==============================] - 705s 1s/step - loss: 0.1164 - acc: 0.9556 - val\_loss: 0.2725 - val\_acc: 0.9047
+Epoch 35/50
+625/625 [==============================] - 705s 1s/step - loss: 0.1171 - acc: 0.9548 - val\_loss: 0.2152 - val\_acc: 0.9125
+
+Epoch 00035: ReduceLROnPlateau reducing learning rate to 9.999999747378752e-07.
+Epoch 36/50
+625/625 [==============================] - 704s 1s/step - loss: 0.1121 - acc: 0.9575 - val\_loss: 0.3231 - val\_acc: 0.8859
+Epoch 37/50
+625/625 [==============================] - 705s 1s/step - loss: 0.1119 - acc: 0.9571 - val\_loss: 0.1926 - val\_acc: 0.9203
+Epoch 38/50
+625/625 [==============================] - 704s 1s/step - loss: 0.1118 - acc: 0.9580 - val\_loss: 0.2299 - val\_acc: 0.9156
+Epoch 39/50
+625/625 [==============================] - 707s 1s/step - loss: 0.1100 - acc: 0.9586 - val\_loss: 0.1837 - val\_acc: 0.9297
+Epoch 40/50
+625/625 [==============================] - 728s 1s/step - loss: 0.1104 - acc: 0.9583 - val\_loss: 0.2393 - val\_acc: 0.9107
+Epoch 41/50
+625/625 [==============================] - 713s 1s/step - loss: 0.1082 - acc: 0.9582 - val\_loss: 0.2744 - val\_acc: 0.9016
+Epoch 42/50
+625/625 [==============================] - 718s 1s/step - loss: 0.1121 - acc: 0.9582 - val\_loss: 0.2211 - val\_acc: 0.9328
+Epoch 43/50
+625/625 [==============================] - 728s 1s/step - loss: 0.1113 - acc: 0.9576 - val\_loss: 0.2144 - val\_acc: 0.9094
+Epoch 44/50
+625/625 [==============================] - 722s 1s/step - loss: 0.1109 - acc: 0.9584 - val\_loss: 0.1784 - val\_acc: 0.9203
+Epoch 45/50
+625/625 [==============================] - 725s 1s/step - loss: 0.1084 - acc: 0.9590 - val\_loss: 0.2540 - val\_acc: 0.9141
+Epoch 46/50
+144/625 [=====>{\ldots}] - ETA: 9:08 - loss: 0.1117 - acc: 0.9564
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        KeyboardInterrupt                         Traceback (most recent call last)
+
+        <ipython-input-15-47df86273b68> in <module>()
+          6     validation\_data=validation\_generator,
+          7     validation\_steps=20,   \#当validation\_data为生成器时，本参数指定验证集的生成器返回次数
+    ----> 8     callbacks = [tensorboard,checkpoint,reduce\_lr]
+          9 )
+         10 
+    
+
+        D:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}keras\textbackslash{}legacy\textbackslash{}interfaces.py in wrapper(*args, **kwargs)
+         89                 warnings.warn('Update your `' + object\_name + '` call to the ' +
+         90                               'Keras 2 API: ' + signature, stacklevel=2)
+    ---> 91             return func(*args, **kwargs)
+         92         wrapper.\_original\_function = func
+         93         return wrapper
+    
+
+        D:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}keras\textbackslash{}engine\textbackslash{}training.py in fit\_generator(self, generator, steps\_per\_epoch, epochs, verbose, callbacks, validation\_data, validation\_steps, class\_weight, max\_queue\_size, workers, use\_multiprocessing, shuffle, initial\_epoch)
+       1416             use\_multiprocessing=use\_multiprocessing,
+       1417             shuffle=shuffle,
+    -> 1418             initial\_epoch=initial\_epoch)
+       1419 
+       1420     @interfaces.legacy\_generator\_methods\_support
+    
+
+        D:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}keras\textbackslash{}engine\textbackslash{}training\_generator.py in fit\_generator(model, generator, steps\_per\_epoch, epochs, verbose, callbacks, validation\_data, validation\_steps, class\_weight, max\_queue\_size, workers, use\_multiprocessing, shuffle, initial\_epoch)
+        215                 outs = model.train\_on\_batch(x, y,
+        216                                             sample\_weight=sample\_weight,
+    --> 217                                             class\_weight=class\_weight)
+        218 
+        219                 outs = to\_list(outs)
+    
+
+        D:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}keras\textbackslash{}engine\textbackslash{}training.py in train\_on\_batch(self, x, y, sample\_weight, class\_weight)
+       1215             ins = x + y + sample\_weights
+       1216         self.\_make\_train\_function()
+    -> 1217         outputs = self.train\_function(ins)
+       1218         return unpack\_singleton(outputs)
+       1219 
+    
+
+        D:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}keras\textbackslash{}backend\textbackslash{}tensorflow\_backend.py in \_\_call\_\_(self, inputs)
+       2713                 return self.\_legacy\_call(inputs)
+       2714 
+    -> 2715             return self.\_call(inputs)
+       2716         else:
+       2717             if py\_any(is\_tensor(x) for x in inputs):
+    
+
+        D:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}keras\textbackslash{}backend\textbackslash{}tensorflow\_backend.py in \_call(self, inputs)
+       2673             fetched = self.\_callable\_fn(*array\_vals, run\_metadata=self.run\_metadata)
+       2674         else:
+    -> 2675             fetched = self.\_callable\_fn(*array\_vals)
+       2676         return fetched[:len(self.outputs)]
+       2677 
+    
+
+        D:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}python\textbackslash{}client\textbackslash{}session.py in \_\_call\_\_(self, *args, **kwargs)
+       1437           ret = tf\_session.TF\_SessionRunCallable(
+       1438               self.\_session.\_session, self.\_handle, args, status,
+    -> 1439               run\_metadata\_ptr)
+       1440         if run\_metadata:
+       1441           proto\_data = tf\_session.TF\_GetBuffer(run\_metadata\_ptr)
+    
+
+        KeyboardInterrupt: 
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

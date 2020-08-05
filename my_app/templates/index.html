@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>猫狗大作战</title>
+	<style type="text/css">
+		body{
+			background-image: url('../static/img/background.jpg');
+			background-repeat: repeat-y;
+			background-size: cover;
+
+		}
+		.content-a-upload {
+			position: relative;
+			left: 30%;
+			top: 35px;
+			padding:  0px 10px;
+			margin-left: 30px;
+			height: 60px;
+			width: 150px;
+			font: 900 20px/60px "宋体";
+			text-align: center;
+			cursor: pointer;
+			color: #000;
+			background:#1E90FF;
+			border: 1px solid #1E90FF;
+			border-radius: 6px;
+			overflow: hidden;
+			display: inline-block;
+			text-decoration: none;
+		}
+		.content-a-upload input {
+			position: absolute;
+			font-size: 100px;
+			height: 77px;
+			right: 0;
+			top: 0;
+			opacity: 0;
+			cursor: pointer;
+		}
+		.content-a-upload:hover {
+			color: #444;
+			background: #1874CD;
+			border-color: #1874CD;
+			text-decoration: none
+		}
+		#show{
+			margin: 80px auto auto 350px;
+		} 
+		.float{      
+			width : 500px;      
+			height: 400px;      
+			overflow: hidden;      
+			border: 3px solid #1E90FF;      
+			border-radius: 6px;      
+			position: relative;
+			float: left;
+			
+		} 
+	</style>
+
+</head>
+<body onload="onload();">
+	<form>
+		<a href="" class="content-a-upload">选择图片<input type="file" name="pic" id="pic" multiple></a>
+		<a href="" class="content-a-upload">识别结果<input type="submit" name="submit" id="submit"></a>
+	</form>
+	<div id="show"></div>
+
+
+	<script type="text/javascript" src="../static/js/jquery.min.js"></script>
+	<script type="text/javascript">
+		function onload(){
+
+			var input = document.getElementById("pic");
+			var submit = document.getElementById("submit");
+			var dataArr=[];
+			if(typeof FileReader==='undefined'){
+				alert("抱歉，你的浏览器不支持 FileReader");
+				input.setAttribute('disabled','disabled');
+			}else{
+				input.addEventListener('change',readFile,false);
+			}
+			function readFile(){
+				var fd = new FormData();
+				var iLen = this.files.length;
+				var index = 0;
+				for(var i=0;i<iLen;i++){
+					if (!input['value'].match(/.jpg|.gif|.png|.jpeg|.bmp/i)){
+						return alert("上传的图片格式不正确，请重新选择");
+					}
+					var reader = new FileReader();
+					reader.index = i;
+					fd.append(i,this.files[i]);
+					reader.readAsDataURL(this.files[i]);
+					reader.fileName = this.files[i].name;
+					reader.onload = function(e){
+						var imgMsg = {
+							index:reader.index,
+							name : this.fileName,
+							base64 : this.result
+						}
+						dataArr.push(imgMsg);
+						result = '<div class="result"><img src="'+this.result+'" alt=""/></div>';
+						var div = document.createElement('div');
+						div.innerHTML = result;
+						div['className'] = 'float';
+						div['index'] = index;
+
+						document.getElementById('show').appendChild(div);
+						var img = div.getElementsByTagName('img')[0];
+						img.onload = function(){
+							this.parentNode.style.display = 'block';
+							var oParent = this.parentNode;
+						}
+						div.onclick = function(){
+							this.remove();
+							delete dataArr[this.index];
+						}
+						index++;
+					}
+				}
+			}
+
+			submit.onclick=function() {
+				$.ajax({
+					url: 'http://127.0.0.1:5000/postimg',
+					type: 'post',
+					dataType: 'text',
+					async:false,
+					data: {
+						imgMsg:JSON.stringify(dataArr)
+					},
+					success:function(data){
+						alert(data)
+					}
+				})
+			}
+		}
+	</script>
+</body>
+
+</html>
